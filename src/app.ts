@@ -1,4 +1,4 @@
-import { pokemonOptions, getPokemonNameById, getPokemonTypesById, getInfoPokemonGeneration } from "./controllers/pokemonController";
+import { pokemonOptions, getPokemonNameById, getPokemonTypesById, getInfoPokemonGeneration, pokemonEncounter } from "./controllers/pokemonController";
 
 /**
  * Get pokemon id, name and type
@@ -26,6 +26,8 @@ async function processPokemon(number: number): Promise<pokemonOptions[]> {
     return pokemonList;
 }
 
-processPokemon(9).then( (pokemon) => console.log(pokemon) );
+// processPokemon(9).then( (pokemon) => console.log(pokemon) );
 
-getInfoPokemonGeneration(1).then( (gen) => console.log(gen) );
+// getInfoPokemonGeneration(1).then( (gen) => console.log(gen) );
+
+pokemonEncounter().then( (pokemon) => console.log(`Oh no! ${pokemon} has appeared!`) );

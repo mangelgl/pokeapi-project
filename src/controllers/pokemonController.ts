@@ -1,4 +1,5 @@
-import { http } from "../plugins/http-client-plugin";
+import { http } from '../plugins/http-client-plugin';
+import { capitalizeFirstLetter } from '../utils/functions'
 
 export interface pokemonOptions {
     id: number;
@@ -36,15 +37,23 @@ export const getInfoPokemonGeneration = async (generation: number) => {
 
     const url = `https://pokeapi.co/api/v2/generation/${generation}`;
     const res = await http.get(url);
-    const gen = [
+    const gen = 
         {
             id: res.id,
             main_region: res.main_region.name,
             generation_name: res.names.filter( (lang: any) => lang.language.name === 'es')[0].name,
             pokemon_species: res.pokemon_species,
             types: res.types
-        }
-    ];
+        };
 
     return gen;
+}
+
+export const pokemonEncounter = async () => {
+    
+    const maxPokemonId: number = await getInfoPokemonGeneration(1).then( (info) => {return info.pokemon_species.length});
+    const random = Math.floor(Math.random() * maxPokemonId) + 1;
+    const pokemon = capitalizeFirstLetter( await getPokemonNameById(random) );
+    
+    return pokemon;
 }
