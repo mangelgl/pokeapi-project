@@ -31,3 +31,20 @@ export const getPokemonTypesById = async (id: number) => {
     
     return typesList;
 }
+
+export const getInfoPokemonGeneration = async (generation: number) => {
+
+    const url = `https://pokeapi.co/api/v2/generation/${generation}`;
+    const res = await http.get(url);
+    const gen = [
+        {
+            id: res.id,
+            main_region: res.main_region.name,
+            generation_name: res.names.filter( (lang: any) => lang.language.name === 'es')[0].name,
+            pokemon_species: res.pokemon_species,
+            types: res.types
+        }
+    ];
+
+    return gen;
+}
